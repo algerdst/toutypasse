@@ -10,13 +10,7 @@ from datetime import datetime
 import sys
 
 
-expires = 20
-last_day = datetime.strptime('2024-02-27T14:35:18.000Z', '%Y-%m-%dT%H:%M:%S.000Z')
-now = datetime.now()
-delta = now - last_day
-delta = abs(delta.days)
-if delta > expires:
-    sys.exit()
+
 
 headers = {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 YaBrowser/23.11.0.0 Safari/537.36'
