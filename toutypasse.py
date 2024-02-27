@@ -39,9 +39,12 @@ for category in categories_links:  # прохожу по блокам с наз�
         soup = BeautifulSoup(response.text, 'lxml')
         blocks = soup.find_all('h2', class_='serow_title')
         for block in blocks:
-            link = block.find('a')['href']
-            response = requests.get(link, headers=headers)
-            soup = BeautifulSoup(response.text, 'lxml')
+            try:
+                link = block.find('a')['href']
+                response = requests.get(link, headers=headers)
+                soup = BeautifulSoup(response.text, 'lxml')
+            except:
+                continue
             try:  # если в объявке есть кнопка для просмотра телефона, сохраняю ссылку на объявку, если нет, то пропущу
                 button = soup.find(id='phone_btn')
                 if button:
@@ -69,7 +72,7 @@ with webdriver.Chrome() as browser: # cоздаю экземпляр вебдр�
                     if btn.text == 'Accepter':
                         btn.click()
             except:
-                print()
+                pass
             try:
                 browser.find_element(By.ID, 'phone_btn').click()
                 phone=browser.find_element(By.ID, 'phone_number').text
